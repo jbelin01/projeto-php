@@ -29,7 +29,7 @@
     <label for="numero1">Digite o 1º Número:</label><br>
     <input type="int" id="numero1" name="numero1"><br>
     
-    <button> <input type="submit">Calcular</input> </button>
+   <input type="submit" name="calcular" value="calcular"></input> 
 
 
 </form>
