@@ -11,25 +11,25 @@
 
 <form method= "get " >
 
-    <label for="numero1">Digite o 1º Número:</label><br>
-    <input type="int" id="numero1" name="numero1"><br>
+    <label for="numerox">Digite o 1º Número:</label>
+    <input type="text" id="numerox" name="numero1">
  
  
-    <label for="operacao">escolha a operação: </label><br>
-    <select type="list" id="operacao" name="operacao" list="operacao" ><br>
-    <datalist id="operacao">
+    <label for="operacao">escolha a operação: </label>
+    <select  id="operacao" name="operacao"  >
         <option value="adicao">+</option>
         <option value="subtriacao">-</option>
         <option value="multiplicacao">*</option>
         <option value="divisao">+</option>
         <option value="fatoracao">!</option>
         <option value="elevacao">^</option>
-    </datalist>
+    </select>
  
-    <label for="numero1">Digite o 1º Número:</label><br>
-    <input type="int" id="numero1" name="numero1"><br>
+    <label for="numeroy">Digite o 2º Número:</label>
+    <input type="text" id="numeroy" name="numero2">
     
-   <input type="submit" name="calcular" value="calcular"></input> 
+    <input type="submit" name="calcular" value="calcular"></input> 
+    
 
 
 </form>
