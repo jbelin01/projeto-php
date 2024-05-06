@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             }
             break;
         case 'elevacao':
-            $resultado = MAthpow($numero1, $numero2);
+            $resultado = pow($numero1, $numero2);
             break;
     }
 }
@@ -76,7 +76,7 @@ function fatorial($n)
         return 1;
     }
 
-    return $n * $this->fatorial($n - 1);
+    return $n * fatorial($n - 1);
 }
 ?>
 
