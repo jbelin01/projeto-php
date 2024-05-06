@@ -27,7 +27,7 @@
 
     <input type="submit" name="calcular" value="Calcular">
 
-    <input type="submit" name="limpar" value="Limpar">
+    <input type="submit" name="limpar" value="Limpar Histórico">
 
     <input type="submit" name="salvar" value="Salvar">
 
@@ -38,24 +38,25 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['h'])) {
-    $_SESSION['h'] = [];
+if (!isset($_SESSION['historico'])) {
+    $_SESSION['historico'] = [];
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if (isset($_GET['limpar'])) {
-        $_SESSION['h'] = [];
+        $_SESSION['historico'] = [];
     } elseif (isset($_GET['salvar'])) {
-        if (isset($_SESSION['r'])) {
-            $_SESSION['h'][] = $_SESSION['r'];
+        if (isset($_SESSION['resultado'])) {
+            $_SESSION['historico'][] = $_SESSION['resultado'];
+            $_SESSION['memoria'] = $_SESSION['resultado'];
         }
     } elseif (isset($_GET['memoria'])) {
-        if (isset($_SESSION['r'])) {
-            echo "<p>{$_SESSION['r']}</p>";
+        if (isset($_SESSION['memoria'])) {
+            echo "<p>{$_SESSION['memoria']}</p>";
         } else {
-            echo "<p>Nenhuma operação salva.</p>";
+            echo "<p>por acaso salvou alguma coisa na memória pra estar querendo buscar ?! </p>";
         }
-    } else {
+    } elseif (isset($_GET['calcular'])) {
         $n1 = $_GET["num1"];
         $n2 = $_GET["num2"];
         $o = $_GET["operacao"];
@@ -78,28 +79,28 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     $r = $n1 / $n2;
                     $res = "$n1 / $n2 = $r";
                 } else {
-                    $r = "Não é possível dividir por zero!";
-                    $res = "$n1 / $n2 = Não é possível dividir por zero!";
+                    $r = "Não tem como dividir por zero! vá estudar. ";
+                    $res = "$n1 / $n2 = Não tem como dividir por zero! vá estudar.";
                 }
                 break;
             case 'fatorial':
                 if (is_int($n1) && $n1 >= 0) {
                     $r = fatorial($n1);
-                    $res = "fatorial($n1) = $r";
+                    $res = "$n1! = $r";
                 } else {
-                    $r = "Número inválido para fatoração!";
-                    $res = "fatorial($n1) = Número inválido para fatoração!";
+                    $r = "só se fatora um número mano ! ";
+                    $res = "$n1! = como que fatora isso ?! volte a estudar.  ";
                 }
                 break;
             case 'elevacao':
                 $r = pow($n1, $n2);
-                $res = "$n1 elevado a $n2 = $r";
+                $res = "$n1 ^  $n2 = $r";
                 break;
         }
 
         if (isset($res)) {
-            $_SESSION['h'][] = $res;
-            $_SESSION['r'] = $res;
+            $_SESSION['resultado'] = $res;
+            $_SESSION['historico'][] = $res;
         }
     }
 }
@@ -118,16 +119,14 @@ function fatorial($n)
 }
 ?>
 
-<h2>Histórico</h2>
-<?php
-if (!empty($_SESSION['h'])) {
-    foreach ($_SESSION['h'] as $op) {
-        echo "<p>$op</p>";
-    }
-} else {
-    echo "<p>Nenhuma operação realizada ainda.</p>";
-}
-?>
+<?php if (!empty($_SESSION['historico'])): ?>
+    <h2>Histórico</h2>
+    <?php foreach ($_SESSION['historico'] as $op): ?>
+        <p><?php echo $op; ?></p>
+    <?php endforeach; ?>
+<?php else: ?>
+    <p>realize uma operação!</p>
+<?php endif; ?>
 
 </body>
 </html>
