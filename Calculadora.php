@@ -1,73 +1,90 @@
-<?php
-
-    // session_start();
-
-    // $_SESSION["nome"] = "Luis Lindo";
-    // $_SESSION["sexo"] = " o brabo do mandela  MACHO ALFA";
-    
-
-?> 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
+ 
+ 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora PHP </title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+ 
+ 
 </head>
-
+ 
+ 
 <body style="background-color: black;">
-    <main style="padding-top: 2rem; margin-left: 15rem; margin-right: 15rem; justify-content: center; align-items: center;">
-    <div style="background-color: red; padding: 1rem; border-radius: 8px;">
-
-        <h4><p style="text-align: center; padding: 8px; color: white;">CALCULADORA</p></h4>
-
-        <form method= "get" class="row" >
-            <div class="row">
-                <div class="col">
-                    <div class="input-group flex-nowrap ">
-                        <label class="input-group-text" id="addon-wrapping">Número 1</label>
-                        <input  type="int" id="num1" name="num1" class="form-control" placeholder="Número 1" aria-label="Número 1" aria-describedby="addon-wrapping">
+    <main
+        style="padding-top: 2rem; margin-left: 15rem; margin-right: 15rem; justify-content: center; align-items: center;">
+        <div style="background-color: red; padding: 1rem; border-radius: 8px;">
+ 
+ 
+            <h4>
+                <p style="text-align: center; padding: 8px; color: white;">CALCULADORA</p>
+            </h4>
+ 
+ 
+            <form method="get" class="row">
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group flex-nowrap ">
+                            <label class="input-group-text" id="addon-wrapping">Número 1</label>
+                            <input type="int" id="num1" name="num1" class="form-control" placeholder="Número 1"
+                                aria-label="Número 1" aria-describedby="addon-wrapping">
+                        </div>
                     </div>
+ 
+ 
+                    <select class="form-select w-auto" id="operacao" name="operacao"
+                        aria-label="Default select example">
+                        <option value="adicao">+</option>
+                        <option value="subtriacao">-</option>
+                        <option value="multiplicacao">*</option>
+                        <option value="divisao">/</option>
+                        <option value="fatoracao">!</option>
+                        <option value="elevacao">^</option>
+                    </select>
+ 
+ 
+                    <div class="col">
+                        <div class="input-group flex-nowrap ">
+                            <label class="input-group-text" id="addon-wrapping">Número 2</label>
+                            <input type="int" id="num2" name="num2" class="form-control" placeholder="Número 2"
+                                aria-label="Número 2" aria-describedby="addon-wrapping">
+                        </div>
+                    </div>
+                    <input type="submit" name="calcular" class="btn btn-primary w-auto" value="Calcular">
                 </div>
-                
-                <select class="form-select w-auto" id="operacao" name="operacao" aria-label="Default select example">
-                    <option value="adicao">+</option>
-                    <option value="subtriacao">-</option>
-                    <option value="multiplicacao">*</option>
-                    <option value="divisao">/</option>
-                    <option value="fatoracao">!</option>
-                    <option value="elevacao">^</option>
-                </select> 
-                
-                <div class="col">
-                    <div class="input-group flex-nowrap ">
-                        <label class="input-group-text" id="addon-wrapping">Número 2</label>
-                        <input type="int" id="num2" name="num2" class="form-control" placeholder="Número 2" aria-label="Número 2" aria-describedby="addon-wrapping">
-                    </div>                
+ 
+ 
+                <div class="d-flex" style=" padding: 1rem">
+ 
+ 
+                    <input type="submit" name="limpar" class="btn btn-primary " value="Limpar Histórico"
+                        style="margin-right: 10px;">
+ 
+ 
+                    <input type="submit" name="salvar" class="btn btn-primary " value="Salvar"
+                        style="margin-right: 10px;">
+ 
+ 
+                    <input type="submit" name="memoria" class="btn btn-primary" value="Memória">
                 </div>
-                <input type="submit" name="calcular" class="btn btn-primary w-auto" value="Calcular">
-            </div>
-            
-            <div class="d-flex" style=" padding: 1rem">
-                
-            <input type="submit" name="limpar"class="btn btn-primary " value="Limpar Histórico" style="margin-right: 10px;">
-            
-            <input type="submit" name="salvar"class="btn btn-primary " value="Salvar" style="margin-right: 10px;">
-            
-            <input type="submit" name="memoria"class="btn btn-primary" value="Memória">
-        </div>
-        
-    </form>
-    
-    <div style="padding: 8px; background-color: white;border-radius: 15px;">
-        <?php
+ 
+ 
+            </form>
+ 
+ 
+            <div style="padding: 8px; background-color: white;border-radius: 15px;">
+                <?php
             session_start();
-            
+ 
+ 
             if (!isset($_SESSION['historico'])) {
                 $_SESSION['historico'] = [];
             }
-            
+ 
+ 
             if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 if (isset($_GET['limpar'])) {
                     $_SESSION['historico'] = [];
@@ -86,9 +103,8 @@
                     $n1 = $_GET["num1"];
                     $n2 = $_GET["num2"];
                     $o = $_GET["operacao"];
-
-
-                    
+ 
+ 
                     switch ($o) {
                         case 'adicao':
                             $r = $n1 + $n2;
@@ -125,41 +141,49 @@
                                 $res = "$n1 ^  $n2 = $r";
                                 break;
                             }
-                            
+ 
+ 
                             if (isset($res)) {
                                 $_SESSION['resultado'] = $res;
                                 $_SESSION['historico'][] = $res;
                             }
                         }
                     }
-                    
+ 
+ 
                     if (isset($r)) {
                         echo "<h5><p>Resultado: {$r}</p><h5>";
                     }
-                    
+ 
+ 
                     function fatorial($n)
                     {
                         if ($n == 0) {
                             return 1;
                         }
-                        
+ 
+ 
                         return $n * fatorial($n - 1);
                     }
                     ?>
-
-<?php if (!empty($_SESSION['historico'])): ?>
-    <h2 style="text-align: center; border: 1px solid; border-radius: 10px; background-color: gray; color: black">Histórico</h2>
-    <?php foreach ($_SESSION['historico'] as $op): ?>
-        <p style="margin-left: 15px;"><?php echo $op; ?></p>
-        <?php endforeach; ?>
-        <?php else: ?>
-            <h4><p style="text-align: center; padding: 15px;">Faça um cálculo!</p></h4>
-            
+                <?php if (!empty($_SESSION['historico'])): ?>
+                <h2
+                    style="text-align: center; border: 1px solid; border-radius: 10px; background-color: gray; color: black">
+                    Histórico</h2>
+                <?php foreach ($_SESSION['historico'] as $op): ?>
+                <p style="margin-left: 15px;"><?php echo $op; ?></p>
+                <?php endforeach; ?>
+                <?php else: ?>
+                <h4>
+                    <p style="text-align: center; padding: 15px;">realize uma operação!</p>
+                </h4>
+                <?php endif; ?>
+            </div>
         </div>
-
-        
-    </div>
     </main>
-    
+ 
+ 
 </body>
+ 
+ 
 </html>

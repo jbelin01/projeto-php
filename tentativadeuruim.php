@@ -70,9 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     } elseif (isset($_GET['calcular'])) {
         $n1 = $_GET["num1"];
         $n2 = $_GET["num2"];
-        $o = $_GET["operacao"];
+        $op = $_GET["operacao"];
 
-        switch ($o) {
+        switch ($op) {
             case 'adicao':
                 $r = $n1 + $n2;
                 $res = "$n1 + $n2 = $r";
