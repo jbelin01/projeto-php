@@ -4,6 +4,7 @@
 
     // $_SESSION["nome"] = "Luis Lindo";
     // $_SESSION["sexo"] = " o brabo do mandela  MACHO ALFA";
+    // se sabe que o professor vai ver essa fita né ?
 
 ?> 
 <!DOCTYPE html>
