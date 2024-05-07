@@ -4,7 +4,7 @@
 
     // $_SESSION["nome"] = "Luis Lindo";
     // $_SESSION["sexo"] = " o brabo do mandela  MACHO ALFA";
-    // se sabe que o professor vai ver essa fita né ?
+    
 
 ?> 
 <!DOCTYPE html>
@@ -86,6 +86,8 @@
                     $n1 = $_GET["num1"];
                     $n2 = $_GET["num2"];
                     $o = $_GET["operacao"];
+
+
                     
                     switch ($o) {
                         case 'adicao':
@@ -151,9 +153,11 @@
         <p style="margin-left: 15px;"><?php echo $op; ?></p>
         <?php endforeach; ?>
         <?php else: ?>
-            <h4><p style="text-align: center; padding: 15px;">realize uma operação!</p></h4>
-            <?php endif; ?>
+            <h4><p style="text-align: center; padding: 15px;">Faça um cálculo!</p></h4>
+            
         </div>
+
+        
     </div>
     </main>
     

@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora PHP</title>
+    <style>
+        input[type="text"], select {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
 
 <form method="GET">
 
     <label for="num1">1º Número:</label>
-    <input type="text" id="num1" name="num1" value="<?php echo isset($_GET['num1']) ? $_GET['num1'] : ''; ?>">
+    <input type="text" name="num1" value="<?php echo isset($_GET['num1']) ? $_GET['num1'] : ''; ?>">
 
     <label for="operacao">Operação:</label>
-    <select id="operacao" name="operacao">
+    <select name="operacao">
         <option value="adicao" <?php echo (isset($_GET['operacao']) && $_GET['operacao'] == 'adicao') ? 'selected' : ''; ?>>+</option>
         <option value="subtracao" <?php echo (isset($_GET['operacao']) && $_GET['operacao'] == 'subtracao') ? 'selected' : ''; ?>>-</option>
         <option value="multiplicacao" <?php echo (isset($_GET['operacao']) && $_GET['operacao'] == 'multiplicacao') ? 'selected' : ''; ?>>*</option>
@@ -23,7 +28,7 @@
     </select>
 
     <label for="num2">2º Número:</label>
-    <input type="text" id="num2" name="num2" value="<?php echo isset($_GET['num2']) ? $_GET['num2'] : ''; ?>">
+    <input type="text" name="num2" value="<?php echo isset($_GET['num2']) ? $_GET['num2'] : ''; ?>">
 
     <input type="submit" name="calcular" value="Calcular">
 
@@ -56,18 +61,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     } elseif (isset($_GET['memoria_botao'])) {
         if (isset($_SESSION['memoria'])) {
             list($num1, $operacao, $num2) = explode(',', $_SESSION['memoria']);
-            echo "<script>
-                    document.getElementById('num1').value = '{$num1}';
-                    document.getElementById('num2').value = '{$num2}';
-                    document.getElementById('operacao').value = '{$operacao}';
-                  </script>";
+            echo "<input type='hidden' id='num1' name='num1' value='{$num1}'>";
+            echo "<input type='hidden' id='num2' name='num2' value='{$num2}'>";
+            echo "<input type='hidden' id='operacao' name='operacao' value='{$operacao}'>";
         } else {
             echo "<p>Nenhuma operação salva na memória.</p>";
         }
     } elseif (isset($_GET['calcular'])) {
-        if (isset($_SESSION['memoria'])) {
-            unset($_SESSION['memoria']);
-        }
         $n1 = $_GET["num1"];
         $n2 = $_GET["num2"];
         $o = $_GET["operacao"];
@@ -113,6 +113,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $_SESSION['resultado'] = $res;
             $_SESSION['historico'][] = $res;
         }
+
+        $_GET['num1'] = '';
+        $_GET['num2'] = '';
     }
 }
 
@@ -130,14 +133,11 @@ function fatorial($n)
 }
 ?>
 
-<?php if (!empty($_SESSION['historico'])): ?>
-    <h2>Histórico</h2>
-    <?php foreach ($_SESSION['historico'] as $op): ?>
-        <p><?php echo $op; ?></p>
-    <?php endforeach; ?>
-<?php else: ?>
-    <p>Nenhuma operação realizada ainda.</p>
-<?php endif; ?>
+<h2>Histórico</h2>
 
+<?php echo !empty($_SESSION['historico']) ? 
+    implode('', array_map(function($op) { return "<p>$op</p>"; }, $_SESSION['historico'])) : 
+    "<p>Nenhuma operação realizada ainda.</p>"; 
+?>
 </body>
 </html>
